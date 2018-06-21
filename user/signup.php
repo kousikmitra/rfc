@@ -37,8 +37,15 @@ if(isset($_POST['signup'])){
     <title>Document</title>
 </head>
 <body>
-    <div class="signup">
-        <form action="" method="post">
+    <div class="main">
+        <div class="topbar">
+            <div class="header">
+            <img src="./images/logo.png" alt="">
+            </div>
+        </div>
+        <div class="signup-div">
+             <div class="signup">
+             <form action="" method="post">
         <fieldset>
                    <legend>Sign Up</legend>
                    <?php
@@ -77,7 +84,11 @@ if(isset($_POST['signup'])){
                     <input type="submit" value="Sign Up" name="signup" id="signup" class="btn btn-primary">
                    </fieldset>
         </form>
+            </div>
+        </div>
+       
     </div>
+    
     <script src="../vendor/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

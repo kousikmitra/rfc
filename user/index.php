@@ -42,14 +42,39 @@ if(isset($_POST['login'])){
 <body>
     <div class="main">
         <div class="top-bar">
-            <div class="title">
-                <h1>Rail Food System</h1>
+            
+     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+     <a class="navbar-brand" href="#">
+     <div class="title">
+                <img src="./images/logo.png" alt="">
             </div>
+    </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+          
         </div>
-        <div class="slideshow">
-        <img src="./images/slideshow.jpg" alt="Image" height="300" width="100%">
+      </nav>
         </div>
+        
         <div class="main-content">
+            <div class="login-section">
+                <div class="head-text">
+                    <h1>Get food delivered on train berth</h1>
+                </div>
             <div class="login">
                 <form action="" method="post" class="login-form">
                    <fieldset>
@@ -71,15 +96,14 @@ if(isset($_POST['login'])){
                     <label for="password">Password :</label>
                     <input type="password" name="password" id="password" class="form-control" required>
                     </div>
-                    <input type="submit" value="login" name="login" id="login" class="btn btn-primary"><br>
+                    <input type="submit" value="login" name="login" id="login" class="btn btn-primary"><br><br>
                     <a href="#">forgot password?</a><br>
                     <a href="./signup.php">Sign Up!</a>
                    </fieldset>
                 </form>
             </div>
-            <div class="information">
-            
             </div>
+
         </div>
     </div>
     <script src="../vendor/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
