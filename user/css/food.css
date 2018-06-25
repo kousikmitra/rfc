@@ -2,6 +2,12 @@ body{
     background: rgba(231, 224, 224, 0.2);
 }
 
+p{
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+}
+
 .section1{
     background: white;
     display: flex;
@@ -41,12 +47,86 @@ body{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .item{
-    background: lightblue;
-    border: 1px black solid;
-    margin-bottom: 20px;
-    padding: 20px 40px;
+    background: white;
+    /* border: 1px black solid; */
+    margin-bottom: 40px;
     align-self: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px #b1adadaf;
+}
+.item:hover{
+    box-shadow: 0px 8px 5px #b1adadaf;
+}
+.item .head{
+    
+    height: 40px;
+    background: rgb(247, 78, 36);
+    box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.2),
+                0px 2px 5px 0px rgba(0, 0, 0, 0.14),
+                0px 0px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.item .main-item{
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+}
+
+.food-detail *{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 3px;
+}
+
+.food-detail{
+    padding: 5px 5px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #796f6f;
+    width: 100%;
+}
+
+.price p{
+    font-size: 1.2em;
+}
+
+.food-name{
+    margin-bottom: 8px;
+    color: #4d3d36;
+    font-weight: 500;
+}
+
+.fa-star-o{
+    color: orange;
+}
+
+.checked{
+    color: orange;
+}
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icons img{
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+    margin-top: 2px;
+}
+
+.order{
+    float: right !important;
+}
+
+.order a{
+    padding: 5px 8px;
 }
