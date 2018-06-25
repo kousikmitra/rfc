@@ -40,7 +40,7 @@ isLoggedIn();
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary mb-2" name="searchbypnr">Search Food</button>
+                                        <input type="submit" class="btn btn-primary mb-2" name="searchbypnr" value="Search Food">
                                     </div>
                                 </div>
                             </form>
@@ -69,7 +69,7 @@ isLoggedIn();
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary mb-2" name="searchbytrain" style="float:right;">Search Food</button>
+                                        <input type="submit" class="btn btn-primary mb-2" name="searchbytrain" value="Search Food" style="float:right;">
                                     </div>
                                 </div>
                             </form>
