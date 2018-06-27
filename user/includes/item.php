@@ -44,7 +44,7 @@
                 <img src="https://www.railrestro.com/img/icons/5.png" title="Veg Food">
                 </div>
                 <div class="order">
-                <a href="./fooditem.php?food_id=<?php echo $row['food_id']; ?>" class="btn btn-success"><span class="fa fa-cutlery"></span> Order Food</a>
+                <a href="./fooditem.php?trainno=<?php echo $trainno ?>&food_id=<?php echo $row['food_id']; ?>" class="btn btn-success"><span class="fa fa-cutlery"></span> Order Food</a>
                 </div>
                 </div>
             </div>
