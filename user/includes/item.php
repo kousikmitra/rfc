@@ -4,14 +4,14 @@
         <div class="main-item">
             <div class="food-image">
                 <div style="padding:4px;border:0.5px #b1adadaf solid; border-radius:2%; width: auto;">
-                    <img src="./images/food 1.jpg" alt="" height=150 width=150>
+                    <img src="./images/food/<?php echo $row['food_image']; ?>" alt="" height=150 width=150>
                 </div>
             </div>
             <div class="food-detail">
-                <h4 class="food-name">Butter Paneer Masala</h4>
+                <h4 class="food-name"><?php echo $row['food_name']; ?></h4>
                 <div class="price">
                     <p>
-                        <i class="fa fa-rupee"></i> 135.00</p>
+                        <i class="fa fa-rupee"></i> <?php echo $row['food_price']; ?></p>
                 </div>
                 <table class="rating">
                     <tr>
@@ -44,7 +44,7 @@
                 <img src="https://www.railrestro.com/img/icons/5.png" title="Veg Food">
                 </div>
                 <div class="order">
-                <a href="" class="btn btn-success"><span class="fa fa-cutlery"></span> Order Food</a>
+                <a href="./fooditem.php?food_id=<?php echo $row['food_id']; ?>" class="btn btn-success"><span class="fa fa-cutlery"></span> Order Food</a>
                 </div>
                 </div>
             </div>
