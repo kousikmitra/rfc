@@ -7,6 +7,8 @@ isLoggedIn();
 if(isset($_GET['searchbytrain'])){
     $trainno = $_GET['trainno'];
     $date = $_GET['doj'];
+    $_SESSION['train'] = $trainno;
+    $_SESSION['doj'] = $date;
 
     $trainq = "SELECT * FROM train_route WHERE train_no='$trainno'";
     $traininfo = $conn->query($trainq)->fetch_assoc();

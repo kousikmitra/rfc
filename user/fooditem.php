@@ -11,6 +11,25 @@ if(isset($_GET['trainno']) and isset($_GET['food_id']) and $_GET['trainno'] != "
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 }
+
+if(isset($_GET['addtocart'])){
+    $trainno = $_GET['train_no'];
+    $foodid = $_GET['food_id'];
+    $totalno = $_GET['ordertotal'];
+    $price = $_GET['price'];
+    $totalprice = $totalno * $price;
+
+    $sql = "INSERT INTO cart (train_no, user_id, food_id, total_no, price, total_price, order_date) 
+            VALUES ('$trainno', '{$_SESSION['uid']}', '$foodid', '$totalno', '$price', '$totalprice', CURDATE())
+            ON DUPLICATE KEY UPDATE total_no='$totalno', price='$price', total_price='$totalprice'";
+    
+    if($conn->query($sql)){
+        echo "<script>alert('Item Added into Cart !'); window.location = './fooditem.php?trainno=$trainno&food_id=$foodid';</script>";
+    } else {
+        echo "<script>alert('Item Failed to Add into Cart !'); window.location = './fooditem.php?trainno=$trainno&food_id=$foodid';</script>";
+    }
+
+}
 ?>
 
 
@@ -77,6 +96,7 @@ if(isset($_GET['trainno']) and isset($_GET['food_id']) and $_GET['trainno'] != "
                                 <form action="">
                                     <input type="hidden" name="train_no" value="<?php echo $trainno; ?>">
                                     <input type="hidden" name="food_id" value="<?php echo $row['food_id']; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $row['food_price']; ?>">
                                     <div class="form-row">
                                         <div class="col-5 mr-5">
                                             <label class="sr-only" for="ordertotal">How much?</label>
@@ -107,6 +127,4 @@ if(isset($_GET['trainno']) and isset($_GET['food_id']) and $_GET['trainno'] != "
                 </div>
             </div>
     </body>
-
     </html>
-    r-jio@india.com
