@@ -19,7 +19,7 @@ if(isset($_GET['addtocart'])){
     $price = $_GET['price'];
     $totalprice = $totalno * $price;
 
-    $sql = "INSERT INTO cart (train_no, user_id, food_id, total_no, price, total_price, order_date) 
+    $sql = "INSERT INTO cart (train_no, user_id, food_id, total_no, price, total_price, add_date) 
             VALUES ('$trainno', '{$_SESSION['uid']}', '$foodid', '$totalno', '$price', '$totalprice', CURDATE())
             ON DUPLICATE KEY UPDATE total_no='$totalno', price='$price', total_price='$totalprice'";
     
