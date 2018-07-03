@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2018 at 06:07 PM
+-- Generation Time: Jul 03, 2018 at 02:55 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -25,6 +25,43 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `u_id` int(11) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `train_no` varchar(8) NOT NULL,
+  `name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `cart_id` int(11) NOT NULL,
+  `train_no` varchar(8) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `food_id` int(11) NOT NULL,
+  `total_no` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `total_price` float NOT NULL,
+  `add_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `train_no`, `user_id`, `food_id`, `total_no`, `price`, `total_price`, `add_date`) VALUES
+(1, '12381', 1, 1, 3, 135, 405, '2018-06-30');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `food`
 --
 
@@ -32,8 +69,17 @@ CREATE TABLE `food` (
   `food_id` int(11) NOT NULL,
   `food_name` varchar(100) NOT NULL,
   `food_category` varchar(100) NOT NULL,
-  `food_price` float NOT NULL
+  `food_price` float NOT NULL,
+  `food_image` varchar(100) NOT NULL DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`food_id`, `food_name`, `food_category`, `food_price`, `food_image`) VALUES
+(1, 'VEG FRIED RICE', 'veg, lunch, dinner', 135, 'default.jpg'),
+(2, 'WATER 1lt', '', 20, 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -48,6 +94,14 @@ CREATE TABLE `todaymenu` (
   `today` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `todaymenu`
+--
+
+INSERT INTO `todaymenu` (`id`, `train_no`, `food_id`, `today`) VALUES
+(1, '12381', 1, '2018-06-30'),
+(2, '12381', 2, '2018-06-30');
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +114,16 @@ CREATE TABLE `train_route` (
   `src` varchar(8) NOT NULL,
   `dest` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `train_route`
+--
+
+INSERT INTO `train_route` (`train_no`, `train_name`, `src`, `dest`) VALUES
+(12301, 'Howrah - New Delhi Rajdhani Express (via Gaya)', 'HWH', 'NDLS'),
+(12381, 'Poorva Express (via Gaya) (PT)', 'HWH', 'NDLS'),
+(12387, 'Howrah - Puri Superfast Express', 'HWH', 'PURI'),
+(12860, 'Gitanjali Express (PT)', 'HWH', 'CSTM');
 
 -- --------------------------------------------------------
 
@@ -86,6 +150,19 @@ INSERT INTO `user` (`u_id`, `u_name`, `u_email`, `u_password`, `u_phone`, `u_add
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`u_id`);
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`train_no`,`user_id`,`food_id`),
+  ADD UNIQUE KEY `cart_id` (`cart_id`);
 
 --
 -- Indexes for table `food`
@@ -118,22 +195,34 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `todaymenu`
 --
 ALTER TABLE `todaymenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `train_route`
 --
 ALTER TABLE `train_route`
-  MODIFY `train_no` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `train_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12861;
 
 --
 -- AUTO_INCREMENT for table `user`

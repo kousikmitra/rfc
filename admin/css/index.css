@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.main{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(45deg, rgba(25, 25, 212, 0.658), black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    width: 30%;
+    color: white;
+    padding: 1% 2%;
+    box-shadow: 5px 5px 10px black;
+}
+
+#login, a{
+    float: right;
+    color: white !important;
+}
