@@ -1,5 +1,30 @@
 <?php
 session_start();
+$_SESSION['err_msg'] = "";
+
+if(isset($_POST['login'])){
+    include_once "./includes/dbconnection.php";
+
+    
+    $uemail = $_POST['email'];
+    $upass = md5($_POST['password']);
+
+    $sql = "SELECT u_id, u_name, u_email FROM user WHERE u_email='$uemail' AND u_password='$upass'";
+
+    $result = $conn->query($sql);
+
+    if($result->num_rows == 1){
+        $row = $result->fetch_assoc();
+        $_SESSION['uid'] = $row['u_id'];
+        $_SESSION['uname'] = $row['u_name'];
+        $_SESSION['uemail'] = $row['u_email'];
+        header('location:./home.php');
+    } else {
+        $_SESSION['err_msg'] = "Wrong Email Id or Password";
+        
+    }
+}
+
 ?>
 
 
