@@ -1,7 +1,22 @@
 <?php
 session_start();
+include_once "./includes/dbconnection.php";
 include_once "./includes/functions.php";
 isLoggedIn();
+
+if(isset($_GET['searchbytrain'])){
+    $trainno = $_GET['trainno'];
+    $date = $_GET['doj'];
+    $_SESSION['train'] = $trainno;
+    $_SESSION['doj'] = $date;
+
+    $trainq = "SELECT * FROM train_route WHERE train_no='$trainno'";
+    $traininfo = $conn->query($trainq)->fetch_assoc();
+    
+    $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND train_no='$trainno' AND today=CURDATE()";
+    $result = $conn->query($sql);
+}
+
 ?>
 
 
@@ -15,7 +30,7 @@ isLoggedIn();
         <?php include_once "./includes/bootstrap.php"; ?>
         <link rel="stylesheet" href="./css/common.css">
         <link rel="stylesheet" href="./css/food.css">
-        <title>Home |
+        <title>Search Foods |
             <?php echo $_SESSION['uname']; ?>
         </title>
     </head>
@@ -27,16 +42,16 @@ isLoggedIn();
                 <div class="section1">
                     <div>
                         <h5>Ordering Food in:
-                            <strong>12311 / HWH DLIKLK MAIL</strong>
+                            <strong><?php echo $traininfo['train_no']." / ".$traininfo['train_name']; ?></strong>
                         </h5>
                         <h5>Boarding:
-                            <strong>HWH</strong> To
-                            <strong>KLK</strong>
+                            <strong><?php echo $traininfo['src']; ?></strong> To
+                            <strong><?php echo $traininfo['dest']; ?></strong>
                         </h5>
                     </div>
                     <div>
                         <p>
-                            <strong>DOJ: 25-06-2018</strong>
+                            <strong>DOJ: <?php echo $date; ?></strong>
                         </p>
                         <a href="/" class="btn btn-sm btn-danger" style="margin-top:0px;">
                             <i class="fa fa-chevron-left"></i> &nbspCHANGE JOURNEY DETAILS</a>
@@ -81,7 +96,7 @@ isLoggedIn();
                 </div>
                 <div class="items">
                     <?php 
-                    for($i=0; $i<10; $i++)
+                    while($row = $result->fetch_assoc())
                     include "./includes/item.php"; 
                     ?>
                 </div>

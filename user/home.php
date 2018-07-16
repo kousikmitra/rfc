@@ -48,7 +48,7 @@ isLoggedIn();
                         <hr>
                         <center>OR</center>
                         <div class="train-no">
-                            <form action="" class="form-horizontal">
+                            <form action="./food.php" class="form-horizontal">
                                 <div class="align-items-center">
                                     <div class="col-auto">
                                         <label class="sr-only" for="train-no">Train No.</label>
