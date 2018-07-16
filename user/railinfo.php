@@ -36,7 +36,7 @@
 
      function getByPNR($pnr)
      {
-        $get_data = callAPI('GET', "/https://api.railwayapi.com/v2/pnr-status/pnr/$pnr/apikey/$API_KEY/", false);
+        $get_data = callAPI('GET', "https://api.railwayapi.com/v2/pnr-status/pnr/$pnr/apikey/$API_KEY/", false);
         $response = json_decode($get_data, true);
         echo $response['train']['name'];
         print_r($response);

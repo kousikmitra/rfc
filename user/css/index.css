@@ -22,7 +22,7 @@
 
 .nav-item:hover{
     background: rgba(88, 85, 85, 0.267);
-    color: white;
+    color: white !important;
     border-radius: 8%;
 }
 .nav-item{
