@@ -1,0 +1,105 @@
+p{
+    margin: 0;
+    padding: 0;
+}
+
+.btn{
+    background: rgb(247, 78, 36);
+    border: none;
+    color: white;
+}
+
+.main-content div{
+    /* border: 1px black solid; */
+}
+.main-content{
+    /* border: 1px black solid; */
+    margin-top: 70px;
+}
+
+body{
+    background: rgba(240, 227, 227, 0.4);
+}
+
+.section1{
+    background: rgba(240, 227, 227, 0.4);
+    padding: 2% 5%;
+    padding-bottom: 3%;
+    display: flex;
+    justify-content: center;
+    min-width: 100vh;
+}
+
+.cart{
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2% 5%;
+    padding-bottom: 3%;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #9b8989;
+}
+
+.cart-left{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.train-info{
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.order-items{
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item{
+    box-shadow: 0 0 2px rgb(204, 194, 194);
+    padding: 1% 4%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.number-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0 0 1px rgb(180, 175, 175);
+}
+
+.number-input input{
+    text-align: center;
+    height: inherit;
+    width: 40px;
+    margin: 0;
+    padding: 2px 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    box-shadow: inset 0 0 3px rgb(161, 158, 158);
+}
+
+.number-input span{
+    padding: 3px 8px;
+    color: green;
+    cursor: pointer;
+}
+
+.cart-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+.checkout{
+    justify-content: center;
+    align-items: center;
+}

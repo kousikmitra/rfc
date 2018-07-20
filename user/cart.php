@@ -100,7 +100,7 @@ $result = $conn->query($sql);
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <a href="#" class="btn btn-primary">Checkout</a>
+                                            <a href="./checkout.php" class="btn btn-primary">Checkout</a>
                                         </td>
                                     </tr>
                                 </table>
