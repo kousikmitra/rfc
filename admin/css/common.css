@@ -1,0 +1,40 @@
+.topbar{
+    border: 1px black solid;
+    height: 100px;
+    background-image: url("http://www.f-covers.com/cover/food-facebook-cover-timeline-banner-for-fb.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sidebar{
+    border: 1px black solid;
+    width: 20%;
+}
+
+.content{
+    border: 1px black solid;
+}
+
+.main-content{
+    display: flex;
+    flex-direction: row;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.menu a{
+    /* border: 1px black solid; */
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background: #0f77cc;
+}
+
+.menu a:hover{
+    background: #4618b3;
+}

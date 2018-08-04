@@ -6,19 +6,19 @@ if(isset($_POST['login'])){
     include_once "./includes/dbconnection.php";
 
     
-    $uemail = $_POST['email'];
-    $upass = md5($_POST['password']);
+    $userid = $_POST['userid'];
+    $upass = $_POST['password'];
 
-    $sql = "SELECT u_id, u_name, u_email FROM user WHERE u_email='$uemail' AND u_password='$upass'";
+    $sql = "SELECT u_id, train_no, name FROM admin WHERE u_id='$userid' AND password='$upass'";
 
     $result = $conn->query($sql);
 
     if($result->num_rows == 1){
         $row = $result->fetch_assoc();
         $_SESSION['uid'] = $row['u_id'];
-        $_SESSION['uname'] = $row['u_name'];
-        $_SESSION['uemail'] = $row['u_email'];
-        header('location:./home.php');
+        $_SESSION['utrain'] = $row['train_no'];
+        $_SESSION['uname'] = $row['name'];
+        header('location:./admin_home.php');
     } else {
         $_SESSION['err_msg'] = "Wrong Email Id or Password";
         
@@ -57,8 +57,8 @@ if(isset($_POST['login'])){
                    }
                    ?>
                             <div class="form-group">
-                                <label for="email">Email :</label>
-                                <input type="email" name="email" id="email" class="form-control" required>
+                                <label for="userid">User ID :</label>
+                                <input type="userid" name="userid" id="userid" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password :</label>
