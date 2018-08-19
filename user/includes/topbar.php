@@ -33,7 +33,7 @@
                 <?php
                 if(isset($_SESSION['uid']) and $_SESSION['uid'] != ""){
                 ?>
-                <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Cart</a>
+                <a href="./cart.php" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Cart</a>
                 <?php
                 }
                 ?>
