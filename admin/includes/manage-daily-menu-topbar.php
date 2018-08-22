@@ -17,9 +17,6 @@
                     <li class="nav-item">
                         <a class="nav-link" a href="./add-to-menu.php">Add To Menu</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" a href="./update-food.php">Update Food Details</a>
-                    </li>
                 </ul>
             </div>
         </nav>

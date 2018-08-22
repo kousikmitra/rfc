@@ -7,7 +7,7 @@ isLoggedIn();
 if(isset($_GET['trainno']) and isset($_GET['food_id']) and $_GET['trainno'] != "" and $_GET['food_id'] != ""){
     $trainno = $_GET['trainno'];
     $foodid = $_GET['food_id'];
-    $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND train_no='$trainno' AND today=CURDATE() AND food.food_id='$foodid'";
+    $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND today=CURDATE() AND food.food_id='$foodid'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 }
