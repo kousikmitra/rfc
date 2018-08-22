@@ -8,9 +8,9 @@ if(isset($_GET['approve'])){
     $orderid = $_GET['approve'];
     $sql ="UPDATE order_food SET status=1 WHERE train_no='{$_SESSION['utrain']}' AND order_id='$orderid'";
     if($conn->query($sql)){
-        echo "<script>alert('Order Approved'); window.location = './view_orders.php';</script>";
+        echo "<script>alert('Order Approved!'); window.location = './view_orders.php';</script>";
     } else {
-        echo "<script>alert('Order Approved Failed'); window.location = './view_orders.php';</script>";
+        echo "<script>alert('Order Approving Failed!'); window.location = './view_orders.php';</script>";
     }
 }
 
@@ -41,6 +41,12 @@ if(isset($_GET['cancel'])){
     #view-orders{
         background: #000000;
     }
+    .content{
+        padding-left: 15%;
+        padding-right: 15%;
+        padding-top: 2%;
+        width: 80%;
+    }
     </style>
 </head>
 <body>
@@ -49,25 +55,29 @@ if(isset($_GET['cancel'])){
         <div class="main-content">
             <?php include_once "./includes/sidebar.php"; ?>
             <div class="content">
-            <table class="table">
-            <tr>
-            <td>Order Id</td>
-            <td>User Name</td>
-            <td>Food Name</td>
-            <td>Quantity</td>
-            <td>Price</td>
-            <td>Total Price</td>
-            <td>Order Date</td>
-            <td>Order Time</td>
-            <td>Seat No</td>
-            <td>Status</td>
-            <td>Action</td>
-            </tr>
+            <div>
+            <center><h2>Orders of <?php echo date('d-M-Y'); ?></h2></center>
             <?php
-                $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' ORDER BY order_date, order_time";
+                $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND order_date=CURDATE() ORDER BY order_date, order_time";
                 $result = $conn->query($sql);
-                // print_r($result);
-                while($row = $result->fetch_assoc()){
+                if($result->num_rows > 0){
+                    ?>
+                    <table class="table">
+                <tr>
+                <td>Order Id</td>
+                <td>User Name</td>
+                <td>Food Name</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td>Total Price</td>
+                <td>Order Date</td>
+                <td>Order Time</td>
+                <td>Seat No</td>
+                <td>Status</td>
+                <td>Action</td>
+                </tr>
+                    <?php
+                    while($row = $result->fetch_assoc()){
             ?>
                     <tr>
                     <td><?php echo $row['order_id']; ?></td>
@@ -113,6 +123,16 @@ if(isset($_GET['cancel'])){
                 }
             ?>
             </table>
+            <?php
+                } else {
+            ?>
+            <div class="alert alert-danger">
+                        <strong>Not Found!</strong> No information found.
+                        </div>
+            <?php
+                }
+            ?>
+            </div>
             </div>
         </div>
     </div> 

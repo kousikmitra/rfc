@@ -4,7 +4,7 @@
         <div class="main-item">
             <div class="food-image">
                 <div style="padding:4px;border:0.5px #b1adadaf solid; border-radius:2%; width: auto;">
-                    <img src="./images/food/<?php echo $row['food_image']; ?>" alt="" height=150 width=150>
+                    <img src="<?php echo $row['food_image']; ?>" alt="" height=150 width=150>
                 </div>
             </div>
             <div class="food-detail">

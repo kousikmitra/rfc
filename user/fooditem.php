@@ -55,7 +55,7 @@ if(isset($_GET['addtocart'])){
                 <div class="section1">
                     <div class="food">
                         <div class="food-image">
-                            <img src="./images/food/<?php echo $row['food_image']; ?>" alt="Food" width=500 height=300>
+                            <img src="<?php echo $row['food_image']; ?>" alt="Food" width=500 height=300>
                         </div>
                         <div class="food-detail">
                             <div class="food-name">

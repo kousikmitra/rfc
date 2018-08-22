@@ -13,7 +13,7 @@ if(isset($_GET['searchbytrain'])){
     $trainq = "SELECT * FROM train_route WHERE train_no='$trainno'";
     $traininfo = $conn->query($trainq)->fetch_assoc();
     
-    $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND train_no='$trainno' AND today=CURDATE()";
+    $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND today=CURDATE()";
     $result = $conn->query($sql);
 }
 

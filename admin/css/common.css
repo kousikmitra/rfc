@@ -38,3 +38,9 @@
 .menu a:hover{
     background: #4618b3;
 }
+
+.top-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

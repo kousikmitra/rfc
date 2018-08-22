@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2018 at 02:46 PM
+-- Generation Time: Aug 22, 2018 at 05:44 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -29,11 +29,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `u_id` int(11) NOT NULL,
+  `u_id` varchar(11) NOT NULL,
   `password` varchar(100) NOT NULL,
   `train_no` varchar(8) NOT NULL,
   `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`u_id`, `password`, `train_no`, `name`) VALUES
+('admin', 'admin', '12381', 'admin');
 
 -- --------------------------------------------------------
 
@@ -52,12 +59,30 @@ CREATE TABLE `cart` (
   `add_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `cart`
+-- Table structure for table `complain`
 --
 
-INSERT INTO `cart` (`cart_id`, `train_no`, `user_id`, `food_id`, `total_no`, `price`, `total_price`, `add_date`) VALUES
-(1, '12381', 1, 1, 3, 135, 405, '2018-06-30');
+CREATE TABLE `complain` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `train_no` varchar(8) NOT NULL,
+  `complain_name` text NOT NULL,
+  `complain_text` text NOT NULL,
+  `complain_date` date NOT NULL,
+  `complain_time` time NOT NULL,
+  `status` int(11) NOT NULL,
+  `response` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `complain`
+--
+
+INSERT INTO `complain` (`id`, `user_id`, `train_no`, `complain_name`, `complain_text`, `complain_date`, `complain_time`, `status`, `response`) VALUES
+(1, 1, '12381', 'Example', 'Example text.......................................................................................................................................................................................................................................................................', '2018-08-21', '12:12:29', 0, '');
 
 -- --------------------------------------------------------
 
@@ -67,7 +92,9 @@ INSERT INTO `cart` (`cart_id`, `train_no`, `user_id`, `food_id`, `total_no`, `pr
 
 CREATE TABLE `food` (
   `food_id` int(11) NOT NULL,
+  `train_no` varchar(10) NOT NULL,
   `food_name` varchar(100) NOT NULL,
+  `food_desc` text,
   `food_category` varchar(100) NOT NULL,
   `food_price` float NOT NULL,
   `food_image` varchar(100) NOT NULL DEFAULT 'default.jpg'
@@ -77,9 +104,52 @@ CREATE TABLE `food` (
 -- Dumping data for table `food`
 --
 
-INSERT INTO `food` (`food_id`, `food_name`, `food_category`, `food_price`, `food_image`) VALUES
-(1, 'VEG FRIED RICE', 'veg, lunch, dinner', 135, 'default.jpg'),
-(2, 'WATER 1lt', '', 20, 'default.jpg');
+INSERT INTO `food` (`food_id`, `train_no`, `food_name`, `food_desc`, `food_category`, `food_price`, `food_image`) VALUES
+(1, '12381', 'VEG FRIED RICE', 'Mixed Veg Fried Rice', 'veg, lunch, dinner', 140, '../food/default.jpg'),
+(2, '12381', 'WATER 1lt', NULL, '', 20, '../food/default.jpg'),
+(4, '12382', 'PLAIN RICE', NULL, 'veg, lunch', 30, 'default.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forgotpass`
+--
+
+CREATE TABLE `forgotpass` (
+  `email` varchar(30) NOT NULL,
+  `otp` varchar(5) NOT NULL,
+  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_food`
+--
+
+CREATE TABLE `order_food` (
+  `order_id` int(11) NOT NULL,
+  `train_no` varchar(8) NOT NULL,
+  `user_id` varchar(10) NOT NULL,
+  `food_id` int(11) NOT NULL,
+  `total_no` float NOT NULL,
+  `price` float NOT NULL,
+  `total_price` float NOT NULL,
+  `order_date` date NOT NULL,
+  `order_time` time NOT NULL,
+  `pnr` varchar(15) DEFAULT NULL,
+  `coach_no` varchar(5) DEFAULT NULL,
+  `seat_no` varchar(5) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_food`
+--
+
+INSERT INTO `order_food` (`order_id`, `train_no`, `user_id`, `food_id`, `total_no`, `price`, `total_price`, `order_date`, `order_time`, `pnr`, `coach_no`, `seat_no`, `status`) VALUES
+(1, '12381', '1', 1, 1, 135, 135, '2018-08-16', '17:36:33', NULL, 'E7', '35', 0),
+(2, '12381', '1', 2, 2, 20, 40, '2018-08-16', '17:36:33', NULL, 'E7', '35', 1);
 
 -- --------------------------------------------------------
 
@@ -99,8 +169,7 @@ CREATE TABLE `todaymenu` (
 --
 
 INSERT INTO `todaymenu` (`id`, `train_no`, `food_id`, `today`) VALUES
-(1, '12381', 1, '2018-06-30'),
-(2, '12381', 2, '2018-06-30');
+(3, '12381', 2, '2018-08-21');
 
 -- --------------------------------------------------------
 
@@ -165,10 +234,28 @@ ALTER TABLE `cart`
   ADD UNIQUE KEY `cart_id` (`cart_id`);
 
 --
+-- Indexes for table `complain`
+--
+ALTER TABLE `complain`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `food`
 --
 ALTER TABLE `food`
   ADD PRIMARY KEY (`food_id`);
+
+--
+-- Indexes for table `forgotpass`
+--
+ALTER TABLE `forgotpass`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `order_food`
+--
+ALTER TABLE `order_food`
+  ADD PRIMARY KEY (`order_id`);
 
 --
 -- Indexes for table `todaymenu`
@@ -195,28 +282,34 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `complain`
+--
+ALTER TABLE `complain`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `order_food`
+--
+ALTER TABLE `order_food`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `todaymenu`
 --
 ALTER TABLE `todaymenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `train_route`
