@@ -113,7 +113,7 @@ if(isset($_POST['login'])){
                                         <input type="submit" value="login" name="login" id="login" class="btn btn-primary">
                                         <br>
                                         <br>
-                                        <a href="#">forgot password?</a>
+                                        <a href="./forgotpassword.php">forgot password?</a>
                                         <br>
                                         <a href="./signup.php">Sign Up!</a>
                             </fieldset>
