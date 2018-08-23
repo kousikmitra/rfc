@@ -47,7 +47,43 @@ if(isset($_GET['addtomenu'])){
             <?php include "./includes/manage-daily-menu-topbar.php"; ?>
             <div>
             <center><h2>Add To Menu</h2></center>
-            <table class="table">
+            <div class="search-section" style="padding-left:20%;">
+                        <form action="" method="get" class="form-inline">
+                        <h5 class="mr-sm-4">Search Orders</h5>
+                            <select name="searchby" id="search-by" class="form-control mr-sm-4">
+                                <option value="all">View All</option>
+                                <option value="foodname">Food Name</option>
+                                <option value="foodcat">Food Category</option>
+                            </select>
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Search Keyword" value="<?php echo isset($_SESSION['search_key'])? $_SESSION['search_key'] : ""; ?>" class="form-control mr-sm-4" required>
+                            <input type="submit" value="Search" name="search" class="btn btn-primary mr-sm-4">
+                        </form>
+                    </div><br>
+            <?php
+            $sql = "";
+            if(isset($_GET['search'])) {
+                include_once "./includes/dbconnection.php";
+            
+                $searchby = $_GET['searchby'];
+                $keyword = $_GET['keyword'];
+                $_SESSION['search_key'] = $_GET['keyword'];
+                $_SESSION['searchby'] = $_GET['searchby'];
+            
+                if($searchby === "foodname") {
+                    $sql = "SELECT food_id, food_name, food_desc,food_category, food_price,food_image FROM food WHERE train_no='{$_SESSION['utrain']}' AND food_name like '%$keyword%'";
+                } elseif($searchby === "foodcat") {
+                    $sql = "SELECT food_id, food_name, food_desc,food_category, food_price,food_image FROM food WHERE train_no='{$_SESSION['utrain']}' AND food_category like '%$keyword%'";
+                } else {
+                    $sql = "SELECT food_id, food_name, food_desc,food_category, food_price,food_image FROM food WHERE train_no='{$_SESSION['utrain']}'";
+                }
+            } else {
+                $sql = "SELECT food_id, food_name, food_desc,food_category, food_price,food_image FROM food WHERE train_no='{$_SESSION['utrain']}'";
+            }
+                $result = $conn->query($sql);
+                if($result->num_rows > 0){
+                $sr = 0;
+                ?>
+                <table class="table">
             <tr>
             <td>Sr. No</td>
             <td>Food Name</td>
@@ -59,10 +95,6 @@ if(isset($_GET['addtomenu'])){
             <td>Action</td>
             </tr>
             <?php
-                $sql = "SELECT food_id, food_name, food_desc,food_category, food_price,food_image FROM food WHERE train_no='{$_SESSION['utrain']}'";
-                $result = $conn->query($sql);
-                $sr = 0;
-                // print_r($result);
                 while($row = $result->fetch_assoc()){
                     $sr++;
             ?>
@@ -100,6 +132,15 @@ if(isset($_GET['addtomenu'])){
                 }
             ?>
             </table>
+            <?php
+                } else {
+            ?>
+                <div class="alert alert-danger">
+                <strong>Not Found!</strong> No information found.
+                </div>
+            <?php
+                }
+            ?>
             </div>
             </div>
             </div>

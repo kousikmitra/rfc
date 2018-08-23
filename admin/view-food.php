@@ -47,7 +47,43 @@ if(isset($_GET['delete'])){
             <?php include "./includes/manage-food-topbar.php"; ?>
             
             <center><h2>View All Food</h2></center>
-            <table class="table">
+            <div class="search-section" style="padding-left:25%;">
+                        <form action="" method="get" class="form-inline">
+                        <h5 class="mr-sm-4">Search Orders</h5>
+                            <select name="searchby" id="search-by" class="form-control mr-sm-4">
+                                <option value="all">View All</option>
+                                <option value="foodname">Food Name</option>
+                                <option value="foodcat">Food Category</option>
+                            </select>
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Search Keyword" value="<?php echo isset($_SESSION['search_key'])? $_SESSION['search_key'] : ""; ?>" class="form-control mr-sm-4" required>
+                            <input type="submit" value="Search" name="search" class="btn btn-primary mr-sm-4">
+                        </form>
+                    </div><br>
+            
+            <?php
+            $sql = "";
+            if(isset($_GET['search'])) {
+                include_once "./includes/dbconnection.php";
+            
+                $searchby = $_GET['searchby'];
+                $keyword = $_GET['keyword'];
+                $_SESSION['search_key'] = $_GET['keyword'];
+                $_SESSION['searchby'] = $_GET['searchby'];
+            
+                if($searchby === "foodname") {
+                    $sql = "SELECT * FROM food  WHERE train_no='{$_SESSION['utrain']}' AND food_name like '%$keyword%'";
+                } elseif($searchby === "foodcat") {
+                    $sql = "SELECT * FROM food  WHERE train_no='{$_SESSION['utrain']}' AND food_category like '%$keyword%'";
+                } else {
+                    $sql = "SELECT * FROM food  WHERE train_no='{$_SESSION['utrain']}'";
+                }
+            } else {
+                $sql = "SELECT * FROM food  WHERE train_no='{$_SESSION['utrain']}'";
+            }
+                $result = $conn->query($sql);
+                if($result->num_rows > 0){
+                    ?>
+                    <table class="table">
             <tr>
             <td>Food ID</td>
             <td>Food Name</td>
@@ -57,10 +93,7 @@ if(isset($_GET['delete'])){
             <td>Food Image</td>
             <td>Action</td>
             </tr>
-            <?php
-                $sql = "SELECT * FROM food  WHERE train_no='{$_SESSION['utrain']}'";
-                $result = $conn->query($sql);
-                // print_r($result);
+                    <?php
                 while($row = $result->fetch_assoc()){
             ?>
                     <tr>
@@ -79,6 +112,15 @@ if(isset($_GET['delete'])){
                 }
             ?>
             </table>
+            <?php
+                } else {
+            ?>
+                <div class="alert alert-danger">
+                <strong>Not Found!</strong> No information found.
+                </div>
+            <?php
+                }
+            ?>
             </div>
             </div>
         </div>

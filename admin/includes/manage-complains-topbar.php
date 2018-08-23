@@ -17,9 +17,6 @@
                     <li class="nav-item">
                         <a class="nav-link" a href="./view-old-complains.php">View Old Complains</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" a href="./update-food.php">Update Food Details</a>
-                    </li>
                 </ul>
             </div>
         </nav>

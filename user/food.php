@@ -17,6 +17,33 @@ if(isset($_GET['searchbytrain'])){
     $result = $conn->query($sql);
 }
 
+if(isset($_GET['applyfilter'])){
+    $trainno = $_GET['trainno'];
+    $date = $_GET['doj'];
+    $mealtype =  $_GET['mealtype'];
+    $mealtime = $_GET['mealtime'];
+
+    $trainq = "SELECT * FROM train_route WHERE train_no='$trainno'";
+    $traininfo = $conn->query($trainq)->fetch_assoc();
+
+    if($mealtime == "all" && $mealtype == "any"){
+        echo "<script>alert('aaaa');</script>";
+        $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND today=CURDATE()";
+    } else if($mealtime != "all" && $mealtype == "any"){
+        echo "<script>alert('bbbb');</script>";
+        $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND food.food_category like '%$mealtime%' AND today=CURDATE()";
+    } else if($mealtime == "all" && $mealtype != "any"){
+        echo "<script>alert('$mealtime$mealtype'.'cccc');</script>";
+        $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND food.food_category like '%$mealtype%' AND today=CURDATE()";
+    }else if($mealtime != "all" && $mealtype != "any"){
+        $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND food.food_category IN (SELECT food_category FROM food WHERE food_category like '%$mealtime%$mealtype%' OR food_category like '%$mealtype%$mealtime%') AND today=CURDATE()";
+    } else {
+        echo "<script>alert('$mealtime$mealtype');</script>";
+        $sql = "SELECT food.food_id as \"food_id\", food_name, food_category, food_price, food_image FROM todaymenu, food WHERE todaymenu.food_id=food.food_id AND todaymenu.train_no='$trainno' AND today=CURDATE()";
+    }
+    $result = $conn->query($sql);
+}
+
 ?>
 
 
@@ -58,7 +85,9 @@ if(isset($_GET['searchbytrain'])){
                     </div>
                 </div>
                 <div class="filters">
-                    <form>
+                    <form method="get">
+                        <input type="hidden" name="trainno" id="train" value="<?php echo $_GET['trainno']; ?>">
+                        <input type="hidden" name="doj" id="doj" value="<?php echo $_GET['doj']; ?>">
                         <div class="form-row align-items-center">
                             <div class="col-auto mr-5">
                                 <label class="sr-only" for="mealtime">Meal Time</label>

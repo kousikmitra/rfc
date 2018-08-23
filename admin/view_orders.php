@@ -42,10 +42,13 @@ if(isset($_GET['cancel'])){
         background: #000000;
     }
     .content{
-        padding-left: 15%;
-        padding-right: 15%;
+        /* padding-left: 5%;
+        padding-right: 5%; */
         padding-top: 2%;
         width: 80%;
+    }
+    .search-section{
+        padding-left: 25%;
     }
     </style>
 </head>
@@ -57,8 +60,42 @@ if(isset($_GET['cancel'])){
             <div class="content">
             <div>
             <center><h2>Orders of <?php echo date('d-M-Y'); ?></h2></center>
+            <div class="search-section">
+                        <form action="" method="get" class="form-inline">
+                        <h5 class="mr-sm-4">Search Orders</h5>
+                            <select name="searchby" id="search-by" class="form-control mr-sm-4">
+                                <option value="all">View All</option>
+                                <option value="uname">User Name</option>
+                                <option value="foodname">Food Name</option>
+                                <option value="foodcat">Food Category</option>
+                            </select>
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Search Keyword" value="<?php echo isset($_SESSION['search_key'])? $_SESSION['search_key'] : ""; ?>" class="form-control mr-sm-4" required>
+                            <input type="submit" value="Search" name="search" class="btn btn-primary mr-sm-4">
+                        </form>
+                    </div><br>
             <?php
-                $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND order_date=CURDATE() ORDER BY order_date, order_time";
+            $sql = "";
+                if(isset($_GET['search'])) {
+                    include_once "./includes/dbconnection.php";
+                
+                    $searchby = $_GET['searchby'];
+                    $keyword = $_GET['keyword'];
+                    $_SESSION['search_key'] = $_GET['keyword'];
+                    $_SESSION['searchby'] = $_GET['searchby'];
+                
+                    if($searchby === "uname") {
+                        $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND user.u_name like '%$keyword%' AND order_date=CURDATE() ORDER BY order_date, order_time";
+                    } elseif($searchby === "foodname") {
+                        $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND food.food_name like '%$keyword%' AND order_date=CURDATE() ORDER BY order_date, order_time";
+                    } elseif($searchby === "foodcat") {
+                        $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND food.food_category like '%$keyword%' AND order_date=CURDATE() ORDER BY order_date, order_time";
+                    } else {
+                        $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND order_date=CURDATE() ORDER BY order_date, order_time";
+                    }
+                } else {
+                    $sql = "SELECT order_id, user.u_name AS \"u_name\", food.food_name AS \"food_name\", total_no, price, total_price, order_date, order_time, pnr, coach_no, seat_no, status FROM order_food, food, user WHERE order_food.food_id=food.food_id AND order_food.user_id=user.u_id AND order_food.train_no='{$_SESSION['utrain']}' AND order_date=CURDATE() ORDER BY order_date, order_time";
+                }
+                
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     ?>
@@ -126,9 +163,9 @@ if(isset($_GET['cancel'])){
             <?php
                 } else {
             ?>
-            <div class="alert alert-danger">
-                        <strong>Not Found!</strong> No information found.
-                        </div>
+                <div class="alert alert-danger">
+                <strong>Not Found!</strong> No information found.
+                </div>
             <?php
                 }
             ?>
