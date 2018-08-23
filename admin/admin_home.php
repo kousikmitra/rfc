@@ -25,7 +25,7 @@ isLoggedIn();
         <div class="main-content">
             <?php include_once "./includes/sidebar.php"; ?>
             <div class="content">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit numquam unde veniam optio nobis magnam, dignissimos repellendus qui beatae hic quaerat laudantium in modi dicta, animi consequatur, non quisquam at?
+            This page is in construntion!
             </div>
         </div>
     </div> 
