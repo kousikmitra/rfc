@@ -138,7 +138,7 @@ if(isset($_POST['login'])){
                         <div>
                             <img src="https://www.railrestro.com/img/step3.png " class="stepimages" title="#" alt="Favorite Food - Rail restro" rel="nofollow">
                             <p class="step">
-                                <b>Pay online or cash on delivery.</b>
+                                <b>Pay cash on delivery.</b>
                             </p>
                         </div>
                         <div>
